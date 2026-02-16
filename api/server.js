@@ -13,17 +13,6 @@ const { errorHandler, notFoundHandler } = require('./src/middleware/errorHandler
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// ============================================
-// Middleware
-// ============================================
-
-// CORS - อนุญาต requests จาก Nginx
-app.use(cors({
-    origin: process.env.CORS_ORIGIN || '*',
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],
-    allowedHeaders: ['Content-Type', 'Authorization']
-}));
-
 // CORS configuration - รองรับทั้ง Local และ Railway
 const corsOptions = {
     origin: function (origin, callback) {
@@ -54,6 +43,18 @@ const corsOptions = {
 };
 
 app.use(cors(corsOptions));
+
+// ============================================
+// Middleware
+// ============================================
+
+// CORS - อนุญาต requests จาก Nginx
+app.use(cors({
+    origin: process.env.CORS_ORIGIN || '*',
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    allowedHeaders: ['Content-Type', 'Authorization']
+}));
+
 
 // Body parser
 app.use(express.json());
